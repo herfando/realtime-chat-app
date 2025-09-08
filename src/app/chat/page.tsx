@@ -40,3 +40,8 @@ export default function ChatPage() {
         setMessages((currentMessages) => [...currentMessages, payload.new]);
       })
       .subscribe();
+
+      return () => {
+      supabase.removeChannel(channel);
+    };
+  }, [router]);
