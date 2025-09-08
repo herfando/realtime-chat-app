@@ -32,3 +32,11 @@ export default function ChatPage() {
       }
     };
     fetchMessages();
+
+    // Set up real-time subscription
+    const channel = supabase
+      .channel('realtime-messages')
+      .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'messages' }, (payload) => {
+        setMessages((currentMessages) => [...currentMessages, payload.new]);
+      })
+      .subscribe();
