@@ -55,4 +55,11 @@ export default function ChatPage() {
       user_id: user.id,
     });
 
+    if (error) {
+      console.error('Error sending message:', error);
+    } else {
+      setNewMessage('');
+    }
+  };
+
 
