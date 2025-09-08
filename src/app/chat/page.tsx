@@ -76,4 +76,18 @@ export default function ChatPage() {
         ))}
       </div>
 
+      <form onSubmit={handleSendMessage} style={{ display: 'flex', padding: '10px', borderTop: '1px solid #ccc' }}>
+        <input
+          type="text"
+          value={newMessage}
+          onChange={(e) => setNewMessage(e.target.value)}
+          placeholder="Type a message..."
+          style={{ flex: 1, padding: '8px', marginRight: '10px' }}
+        />
+        <button type="submit">Send</button>
+      </form>
+    </div>
+  );
+}
+
 
