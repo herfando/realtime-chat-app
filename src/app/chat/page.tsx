@@ -62,4 +62,18 @@ export default function ChatPage() {
     }
   };
 
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
+      <header style={{ padding: '10px', backgroundColor: '#f0f0f0', textAlign: 'center' }}>
+        <h2>Realtime Chat App</h2>
+      </header>
+
+      <div style={{ flex: 1, overflowY: 'auto', padding: '10px' }}>
+        {messages.map((msg) => (
+          <div key={msg.id} style={{ marginBottom: '10px' }}>
+            <strong>User {msg.user_id.substring(0, 4)}:</strong> {msg.content}
+          </div>
+        ))}
+      </div>
+
 
