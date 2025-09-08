@@ -1,36 +1,39 @@
-// src/app/chat/page.tsx
-
 'use client';
 
 import { useEffect, useState } from 'react';
-import { supabase } from '@/lib/supabaseClient'; // atau "../../lib/supabaseClient"
+import { supabase } from '@/lib/supabaseClient';
 import { useRouter } from 'next/navigation';
-import { Message } from '@/types/index'; // Import tipe yang sudah dibuat
+
+export type Message = {
+  id: string;
+  created_at: string;
+  content: string;
+  user_id: string;
+};
 
 export default function ChatPage() {
-  // Ganti `useState([])` dengan `useState<Message[]>([]);` untuk memberitahu TypeScript bahwa `messages` adalah array dari objek `Message`.
   const [messages, setMessages] = useState<Message[]>([]);
   const [newMessage, setNewMessage] = useState('');
-  const [user, setUser] = useState<any>(null); // Boleh pakai any untuk sementara
+  const [user, setUser] = useState<any>(null); // Type for user can be improved later
+  const router = useRouter();
 
   useEffect(() => {
-    // ... kode yang lain
-
-    const fetchMessages = async () => {
-      const { data, error } = await supabase.from('messages').select('*').order('created_at', { ascending: true });
-      if (error) {
-        console.error('Error fetching messages:', error);
+    // Check if user is logged in
+    const checkUser = async () => {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) {
+        router.push('/auth');
       } else {
-        // Beri tahu TypeScript bahwa `data` adalah array `Message`
-        setMessages(data as Message[]);
+        setUser(user);
+        fetchMessages();
       }
     };
-    fetchMessages();
+    checkUser();
 
+    // Set up real-time subscription
     const channel = supabase
       .channel('realtime-messages')
       .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'messages' }, (payload) => {
-        // Tipe `payload.new` adalah `any`. Kita harus casting ke `Message`.
         const newMessage = payload.new as Message;
         setMessages((currentMessages) => [...currentMessages, newMessage]);
       })
@@ -39,9 +42,18 @@ export default function ChatPage() {
     return () => {
       supabase.removeChannel(channel);
     };
-  }, [router]);
+  }, []); // Dependency array kosong, karena `router` tidak perlu di sini
 
-  const handleSendMessage = async (e: React.FormEvent) => { // Tambahkan tipe `React.FormEvent` pada `e`
+  const fetchMessages = async () => {
+    const { data, error } = await supabase.from('messages').select('*').order('created_at', { ascending: true });
+    if (error) {
+      console.error('Error fetching messages:', error);
+    } else {
+      setMessages(data as Message[]);
+    }
+  };
+
+  const handleSendMessage = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!newMessage.trim() || !user) return;
 
@@ -58,14 +70,36 @@ export default function ChatPage() {
   };
 
   return (
-    // ...kode JSX yang lain
-    <div style={{ flex: 1, overflowY: 'auto', padding: '10px' }}>
-      {messages.map((msg: Message) => ( // Tambahkan tipe `Message` pada `msg`
-        <div key={msg.id} style={{ marginBottom: '10px' }}>
-          <strong>User {msg.user_id.substring(0, 4)}:</strong> {msg.content}
-        </div>
-      ))}
+    <div style={{ display: 'flex', flexDirection: 'column', height: '100vh', fontFamily: 'sans-serif' }}>
+      <header style={{ padding: '10px', backgroundColor: '#f0f0f0', borderBottom: '1px solid #ddd', textAlign: 'center' }}>
+        <h2>Realtime Chat App</h2>
+      </header>
+
+      <div style={{ flex: 1, overflowY: 'auto', padding: '10px' }}>
+        {messages.map((msg: Message) => (
+          <div key={msg.id} style={{ marginBottom: '10px', padding: '8px', backgroundColor: '#eef', borderRadius: '8px' }}>
+            <strong style={{ color: '#555' }}>User {msg.user_id.substring(0, 4)}:</strong> {msg.content}
+          </div>
+        ))}
+      </div>
+
+      <form onSubmit={handleSendMessage} style={{ display: 'flex', padding: '10px', borderTop: '1px solid #ccc', gap: '10px' }}>
+        <input
+          type="text"
+          value={newMessage}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => setNewMessage(e.target.value)}
+          placeholder="Type a message..."
+          style={{ flex: 1, padding: '10px', borderRadius: '5px', border: '1px solid #ccc' }}
+          disabled={!user}
+        />
+        <button
+          type="submit"
+          style={{ padding: '10px 20px', borderRadius: '5px', border: 'none', backgroundColor: '#007bff', color: 'white', cursor: 'pointer' }}
+          disabled={!user}
+        >
+          Send
+        </button>
+      </form>
     </div>
-    // ...kode JSX yang lain
   );
 }
