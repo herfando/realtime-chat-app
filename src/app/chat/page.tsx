@@ -9,3 +9,15 @@ export default function ChatPage() {
   const [newMessage, setNewMessage] = useState('');
   const [user, setUser] = useState(null);
   const router = useRouter();
+
+  useEffect(() => {
+    // Check if user is logged in
+    const checkUser = async () => {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) {
+        router.push('/auth');
+      } else {
+        setUser(user);
+      }
+    };
+    checkUser();
