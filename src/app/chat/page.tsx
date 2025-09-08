@@ -45,3 +45,8 @@ export default function ChatPage() {
       supabase.removeChannel(channel);
     };
   }, [router]);
+
+  const handleSendMessage = async (e) => {
+    e.preventDefault();
+    if (!newMessage.trim() || !user) return;
+
