@@ -21,3 +21,14 @@ export default function ChatPage() {
       }
     };
     checkUser();
+
+    // Fetch initial messages
+    const fetchMessages = async () => {
+      const { data, error } = await supabase.from('messages').select('*').order('created_at', { ascending: true });
+      if (error) {
+        console.error('Error fetching messages:', error);
+      } else {
+        setMessages(data);
+      }
+    };
+    fetchMessages();
