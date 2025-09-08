@@ -50,3 +50,9 @@ export default function ChatPage() {
     e.preventDefault();
     if (!newMessage.trim() || !user) return;
 
+    const { error } = await supabase.from('messages').insert({
+      content: newMessage,
+      user_id: user.id,
+    });
+
+
