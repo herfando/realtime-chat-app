@@ -21,3 +21,15 @@ export default function AuthPage() {
     }
     setLoading(false);
   };
+
+  const handleSignUp = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    const { error } = await supabase.auth.signUp({ email, password });
+    if (error) {
+      alert(error.message);
+    } else {
+      alert('Check your email to confirm your account!');
+    }
+    setLoading(false);
+  };
