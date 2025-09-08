@@ -33,3 +33,32 @@ export default function AuthPage() {
     }
     setLoading(false);
   };
+
+  return (
+    <div style={{ padding: '20px', maxWidth: '400px', margin: 'auto' }}>
+      <h1>Login / Sign Up</h1>
+      <form onSubmit={handleLogin} style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+        <input
+          type="email"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+        />
+        <input
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+        />
+        <button type="submit" disabled={loading}>
+          {loading ? 'Loading...' : 'Log In'}
+        </button>
+        <button type="button" onClick={handleSignUp} disabled={loading}>
+          Sign Up
+        </button>
+      </form>
+    </div>
+  );
+}
