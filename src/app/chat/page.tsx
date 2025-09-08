@@ -1,52 +1,47 @@
+// src/app/chat/page.tsx
+
 'use client';
 
 import { useEffect, useState } from 'react';
-import { supabase } from '@/lib/supabaseClient';
+import { supabase } from '@/lib/supabaseClient'; // atau "../../lib/supabaseClient"
 import { useRouter } from 'next/navigation';
+import { Message } from '@/types/index'; // Import tipe yang sudah dibuat
 
 export default function ChatPage() {
-  const [messages, setMessages] = useState([]);
+  // Ganti `useState([])` dengan `useState<Message[]>([]);` untuk memberitahu TypeScript bahwa `messages` adalah array dari objek `Message`.
+  const [messages, setMessages] = useState<Message[]>([]);
   const [newMessage, setNewMessage] = useState('');
-  const [user, setUser] = useState(null);
-  const router = useRouter();
+  const [user, setUser] = useState<any>(null); // Boleh pakai any untuk sementara
 
   useEffect(() => {
-    // Check if user is logged in
-    const checkUser = async () => {
-      const { data: { user } } = await supabase.auth.getUser();
-      if (!user) {
-        router.push('/auth');
-      } else {
-        setUser(user);
-      }
-    };
-    checkUser();
+    // ... kode yang lain
 
-    // Fetch initial messages
     const fetchMessages = async () => {
       const { data, error } = await supabase.from('messages').select('*').order('created_at', { ascending: true });
       if (error) {
         console.error('Error fetching messages:', error);
       } else {
-        setMessages(data);
+        // Beri tahu TypeScript bahwa `data` adalah array `Message`
+        setMessages(data as Message[]);
       }
     };
     fetchMessages();
 
-    // Set up real-time subscription
     const channel = supabase
       .channel('realtime-messages')
       .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'messages' }, (payload) => {
-        setMessages((currentMessages) => [...currentMessages, payload.new]);
+        // Tipe `payload.new` adalah `any`. Kita harus casting ke `Message`.
+        const newMessage = payload.new as Message;
+        setMessages((currentMessages) => [...currentMessages, newMessage]);
       })
       .subscribe();
 
-      return () => {
+    return () => {
       supabase.removeChannel(channel);
     };
   }, [router]);
 
-  const handleSendMessage = async (e) => {
+  const handleSendMessage = async (e: React.FormEvent) => { // Tambahkan tipe `React.FormEvent` pada `e`
     e.preventDefault();
     if (!newMessage.trim() || !user) return;
 
@@ -63,31 +58,14 @@ export default function ChatPage() {
   };
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
-      <header style={{ padding: '10px', backgroundColor: '#f0f0f0', textAlign: 'center' }}>
-        <h2>Realtime Chat App</h2>
-      </header>
-
-      <div style={{ flex: 1, overflowY: 'auto', padding: '10px' }}>
-        {messages.map((msg) => (
-          <div key={msg.id} style={{ marginBottom: '10px' }}>
-            <strong>User {msg.user_id.substring(0, 4)}:</strong> {msg.content}
-          </div>
-        ))}
-      </div>
-
-      <form onSubmit={handleSendMessage} style={{ display: 'flex', padding: '10px', borderTop: '1px solid #ccc' }}>
-        <input
-          type="text"
-          value={newMessage}
-          onChange={(e) => setNewMessage(e.target.value)}
-          placeholder="Type a message..."
-          style={{ flex: 1, padding: '8px', marginRight: '10px' }}
-        />
-        <button type="submit">Send</button>
-      </form>
+    // ...kode JSX yang lain
+    <div style={{ flex: 1, overflowY: 'auto', padding: '10px' }}>
+      {messages.map((msg: Message) => ( // Tambahkan tipe `Message` pada `msg`
+        <div key={msg.id} style={{ marginBottom: '10px' }}>
+          <strong>User {msg.user_id.substring(0, 4)}:</strong> {msg.content}
+        </div>
+      ))}
     </div>
+    // ...kode JSX yang lain
   );
 }
-
-
