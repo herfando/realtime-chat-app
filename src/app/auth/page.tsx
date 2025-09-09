@@ -63,3 +63,13 @@ export default function AuthPage() {
             className="w-full p-3 rounded-lg bg-gray-700 text-white placeholder-gray-400 
                        focus:outline-none focus:ring-2 focus:ring-indigo-500"
           />
+
+          <button
+            type="submit"
+            disabled={loading}
+            className="w-full py-3 bg-indigo-600 text-white font-semibold rounded-lg 
+                       shadow-md hover:bg-indigo-500 transition duration-300 
+                       disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            {loading ? 'Loading...' : 'Log In'}
+          </button>
