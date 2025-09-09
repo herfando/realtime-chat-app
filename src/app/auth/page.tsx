@@ -41,3 +41,15 @@ export default function AuthPage() {
         <h1 className="text-2xl font-bold text-center text-white mb-6">
           Login / Sign Up
         </h1>
+
+        {/* Form */}
+        <form onSubmit={handleLogin} className="flex flex-col gap-4">
+          <input
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
+            required
+            className="w-full p-3 rounded-lg bg-gray-700 text-white placeholder-gray-400 
+                       focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          />
