@@ -35,30 +35,57 @@ export default function AuthPage() {
   };
 
   return (
-    <div style={{ padding: '20px', maxWidth: '400px', margin: 'auto' }}>
-      <h1>Login / Sign Up</h1>
-      <form onSubmit={handleLogin} style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
-          required
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
-          required
-        />
-        <button type="submit" disabled={loading}>
-          {loading ? 'Loading...' : 'Log In'}
-        </button>
-        <button type="button" onClick={handleSignUp} disabled={loading}>
-          Sign Up
-        </button>
-      </form>
+    <div className="flex items-center justify-center min-h-screen bg-gray-900 px-4">
+      <div className="bg-gray-800 p-8 rounded-2xl shadow-lg w-full max-w-sm">
+        {/* Title */}
+        <h1 className="text-2xl font-bold text-center text-white mb-6">
+          Login / Sign Up
+        </h1>
+
+        {/* Form */}
+        <form onSubmit={handleLogin} className="flex flex-col gap-4">
+          <input
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
+            required
+            className="w-full p-3 rounded-lg bg-gray-700 text-white placeholder-gray-400 
+                       focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          />
+
+          <input
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
+            required
+            className="w-full p-3 rounded-lg bg-gray-700 text-white placeholder-gray-400 
+                       focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          />
+
+          <button
+            type="submit"
+            disabled={loading}
+            className="w-full py-3 bg-indigo-600 text-white font-semibold rounded-lg 
+                       shadow-md hover:bg-indigo-500 transition duration-300 
+                       disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            {loading ? 'Loading...' : 'Log In'}
+          </button>
+
+          <button
+            type="button"
+            onClick={handleSignUp}
+            disabled={loading}
+            className="w-full py-3 bg-gray-600 text-white font-semibold rounded-lg 
+                       shadow-md hover:bg-gray-500 transition duration-300 
+                       disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            Sign Up
+          </button>
+        </form>
+      </div>
     </div>
   );
 }
