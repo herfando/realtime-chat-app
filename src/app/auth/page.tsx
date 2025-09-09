@@ -10,7 +10,7 @@ export default function AuthPage() {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
-   const handleLogin = async (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     const { error } = await supabase.auth.signInWithPassword({ email, password });
@@ -73,3 +73,19 @@ export default function AuthPage() {
           >
             {loading ? 'Loading...' : 'Log In'}
           </button>
+
+          <button
+            type="button"
+            onClick={handleSignUp}
+            disabled={loading}
+            className="w-full py-3 bg-gray-600 text-white font-semibold rounded-lg 
+                       shadow-md hover:bg-gray-500 transition duration-300 
+                       disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            Sign Up
+          </button>
+        </form>
+      </div>
+    </div>
+  );
+}
