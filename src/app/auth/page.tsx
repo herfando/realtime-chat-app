@@ -33,3 +33,11 @@ export default function AuthPage() {
     }
     setLoading(false);
   };
+
+  return (
+    <div className="flex items-center justify-center min-h-screen bg-gray-900 px-4">
+      <div className="bg-gray-800 p-8 rounded-2xl shadow-lg w-full max-w-sm">
+        {/* Title */}
+        <h1 className="text-2xl font-bold text-center text-white mb-6">
+          Login / Sign Up
+        </h1>
