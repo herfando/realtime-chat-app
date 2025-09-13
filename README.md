@@ -9,7 +9,7 @@
 </h1>
 
 <p align="center">
-  🚀 Modern <b>Next.js</b> project ready for development & deployment with <b>TypeScript</b>, <b>TailwindCSS</b>, and optimized performance.
+  🚀 A modern <b>Next.js</b> project bootstrapped with <b>create-next-app</b>, optimized for performance, responsive UI, and deployment.  
 </p>
 
 <p align="center">
@@ -21,19 +21,19 @@
 
 ---
 
-## ✨ Features  
-- ⚛️ **Next.js App Router** with SSR & static rendering  
+## ✨ Features
+- ⚛️ **Next.js App Router** with SSR & static generation  
 - 🟦 **TypeScript** for strong typing & better DX  
-- 🎨 **TailwindCSS** with responsive & modern design  
+- 🎨 **TailwindCSS** for responsive & modern design  
 - ⏳ **Hot reload & fast refresh**  
-- 🔧 **Optimized fonts** using [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts)  
+- 🔧 **Optimized font loading** using [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts)  
 - 🚀 Ready for **Vercel deployment**  
 - 💡 Future-ready for **dark mode & animations**  
-- 📚 Full **Next.js docs & learning resources**  
+- 📚 Full **Next.js documentation & learning resources**  
 
 ---
 
-## 🚀 Quick Start  
+## 🚀 Quick Start
 
 ```bash
 # Clone this repository
