@@ -56,3 +56,11 @@ export default function AuthPage() {
         animate={{ x: [0, -120, 120, 0], y: [0, 80, -80, 0] }}
         transition={{ repeat: Infinity, duration: 15, ease: 'easeInOut' }}
       />
+
+      {/* Card */}
+      <motion.div
+        initial={{ scale: 0.8, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        transition={{ type: 'spring', stiffness: 120, damping: 10 }}
+        className="relative z-10 bg-gray-800/90 backdrop-blur-lg p-8 rounded-2xl shadow-2xl w-full max-w-sm"
+      ></motion.div>
