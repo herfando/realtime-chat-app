@@ -50,3 +50,9 @@ export default function AuthPage() {
         animate={{ x: [0, 100, -100, 0], y: [0, -50, 50, 0] }}
         transition={{ repeat: Infinity, duration: 12, ease: 'easeInOut' }}
       />
+
+    <motion.div
+        className="absolute w-72 h-72 bg-purple-600 rounded-full blur-3xl opacity-30"
+        animate={{ x: [0, -120, 120, 0], y: [0, 80, -80, 0] }}
+        transition={{ repeat: Infinity, duration: 15, ease: 'easeInOut' }}
+      />
