@@ -87,3 +87,14 @@ export default function AuthPage() {
             className="w-full p-3 rounded-lg bg-gray-700 text-white placeholder-gray-400 
                        focus:outline-none focus:ring-2 focus:ring-indigo-500"
           />
+
+          <motion.input
+            whileFocus={{ scale: 1.02, boxShadow: '0 0 15px rgba(99,102,241,0.5)' }}
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
+            required
+            className="w-full p-3 rounded-lg bg-gray-700 text-white placeholder-gray-400 
+                       focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          />
