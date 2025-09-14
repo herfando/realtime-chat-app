@@ -35,7 +35,7 @@ export default function AuthPage() {
     setLoading(false);
   };
 
-   return (
+  return (
     <div className="relative flex items-center justify-center min-h-screen overflow-hidden">
       {/* Background Gradient Animation */}
       <motion.div
@@ -50,8 +50,7 @@ export default function AuthPage() {
         animate={{ x: [0, 100, -100, 0], y: [0, -50, 50, 0] }}
         transition={{ repeat: Infinity, duration: 12, ease: 'easeInOut' }}
       />
-
-    <motion.div
+      <motion.div
         className="absolute w-72 h-72 bg-purple-600 rounded-full blur-3xl opacity-30"
         animate={{ x: [0, -120, 120, 0], y: [0, 80, -80, 0] }}
         transition={{ repeat: Infinity, duration: 15, ease: 'easeInOut' }}
@@ -63,9 +62,8 @@ export default function AuthPage() {
         animate={{ scale: 1, opacity: 1 }}
         transition={{ type: 'spring', stiffness: 120, damping: 10 }}
         className="relative z-10 bg-gray-800/90 backdrop-blur-lg p-8 rounded-2xl shadow-2xl w-full max-w-sm"
-      ></motion.div>
-
-       {/* Title */}
+      >
+        {/* Title */}
         <motion.h1
           initial={{ y: -20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
@@ -99,7 +97,7 @@ export default function AuthPage() {
                        focus:outline-none focus:ring-2 focus:ring-indigo-500"
           />
 
-          /* Login Button */}
+          {/* Login Button */}
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.97 }}
@@ -108,9 +106,8 @@ export default function AuthPage() {
             className="relative w-full py-3 bg-indigo-600 text-white font-semibold rounded-lg 
                        shadow-md hover:bg-indigo-500 transition duration-300 
                        disabled:opacity-50 disabled:cursor-not-allowed"
-          ></motion.button>
-
-          {loading ? (
+          >
+            {loading ? (
               <motion.div
                 className="w-5 h-5 border-2 border-white border-t-transparent rounded-full mx-auto"
                 animate={{ rotate: 360 }}
@@ -131,4 +128,11 @@ export default function AuthPage() {
             className="w-full py-3 bg-gray-600 text-white font-semibold rounded-lg 
                        shadow-md hover:bg-gray-500 transition duration-300 
                        disabled:opacity-50 disabled:cursor-not-allowed"
-          ></motion.button>
+          >
+            Sign Up
+          </motion.button>
+        </form>
+      </motion.div>
+    </div>
+  );
+}
