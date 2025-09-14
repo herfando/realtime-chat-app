@@ -120,3 +120,15 @@ export default function AuthPage() {
               'Log In'
             )}
           </motion.button>
+
+          {/* Sign Up Button */}
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.97 }}
+            type="button"
+            onClick={handleSignUp}
+            disabled={loading}
+            className="w-full py-3 bg-gray-600 text-white font-semibold rounded-lg 
+                       shadow-md hover:bg-gray-500 transition duration-300 
+                       disabled:opacity-50 disabled:cursor-not-allowed"
+          ></motion.button>
