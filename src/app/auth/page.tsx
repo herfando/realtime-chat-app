@@ -109,3 +109,14 @@ export default function AuthPage() {
                        shadow-md hover:bg-indigo-500 transition duration-300 
                        disabled:opacity-50 disabled:cursor-not-allowed"
           ></motion.button>
+
+          {loading ? (
+              <motion.div
+                className="w-5 h-5 border-2 border-white border-t-transparent rounded-full mx-auto"
+                animate={{ rotate: 360 }}
+                transition={{ repeat: Infinity, duration: 1, ease: 'linear' }}
+              />
+            ) : (
+              'Log In'
+            )}
+          </motion.button>
