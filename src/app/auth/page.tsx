@@ -34,3 +34,12 @@ export default function AuthPage() {
     }
     setLoading(false);
   };
+
+   return (
+    <div className="relative flex items-center justify-center min-h-screen overflow-hidden">
+      {/* Background Gradient Animation */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        className="absolute inset-0 bg-gradient-to-br from-indigo-900 via-purple-900 to-black animate-gradient-xy"
+      />
