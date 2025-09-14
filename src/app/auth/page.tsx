@@ -64,3 +64,13 @@ export default function AuthPage() {
         transition={{ type: 'spring', stiffness: 120, damping: 10 }}
         className="relative z-10 bg-gray-800/90 backdrop-blur-lg p-8 rounded-2xl shadow-2xl w-full max-w-sm"
       ></motion.div>
+
+       {/* Title */}
+        <motion.h1
+          initial={{ y: -20, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ delay: 0.2 }}
+          className="text-3xl font-extrabold text-center text-white mb-6"
+        >
+          Welcome Back 🚀
+        </motion.h1>
