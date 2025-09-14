@@ -43,3 +43,10 @@ export default function AuthPage() {
         animate={{ opacity: 1 }}
         className="absolute inset-0 bg-gradient-to-br from-indigo-900 via-purple-900 to-black animate-gradient-xy"
       />
+
+      {/* Glow Orbs */}
+      <motion.div
+        className="absolute w-72 h-72 bg-indigo-600 rounded-full blur-3xl opacity-30"
+        animate={{ x: [0, 100, -100, 0], y: [0, -50, 50, 0] }}
+        transition={{ repeat: Infinity, duration: 12, ease: 'easeInOut' }}
+      />
